@@ -73,7 +73,10 @@ public class MongoDatabaseImpl extends AbstractDatabase implements MongoDatabase
         datastoreReference.set(morphia.createDatastore(client, database));
       }
 
-      result = new MongoDAO(entity, datastoreReference.get());
+      Datastore datastore = datastoreReference.get();
+      datastore.ensureIndexes();
+      result = new MongoDAO(entity, datastore);
+
       daoCache.put(entity, result);
     }
 

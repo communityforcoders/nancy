@@ -64,13 +64,19 @@ public class MongoTest {
     MongoDAO<MongoElement> dao = database.create(MongoElement.class);
     Assert.assertNotNull(dao);
 
-    MongoElement firstElement = dao.getDatastore().get(MongoElement.class, new ObjectId("0"));
+    MongoElement firstElement = dao.getDatastore().find(MongoElement.class)
+        .field("_id")
+        .equal(0)
+        .get();
     Assert.assertNotNull(firstElement);
     Assert.assertEquals(0, firstElement.getId());
     Assert.assertEquals("first", firstElement.getFirst());
     Assert.assertEquals("value", firstElement.getSecond());
 
-    MongoElement secondValue = dao.getDatastore().get(MongoElement.class, new ObjectId("1"));
+    MongoElement secondValue = dao.getDatastore().find(MongoElement.class)
+        .field("_id")
+        .equal(1)
+        .get();
     Assert.assertNotNull(secondValue);
     Assert.assertEquals(0, secondValue.getId());
     Assert.assertEquals("second", secondValue.getFirst());
