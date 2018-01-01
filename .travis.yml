@@ -20,3 +20,6 @@ matrix:
       apt:
         packages:
           - oracle-java9-installer
+
+notifications:
+  email: false
