@@ -94,6 +94,10 @@ public class MongoTest {
     @Indexed
     private String second;
 
+    public MongoElement() {
+      // for Morphia mapper.
+    }
+
     public MongoElement(long id, String first, String second) {
       this.id = id;
       this.first = first;
