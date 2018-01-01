@@ -1,6 +1,5 @@
 package pl.communityforcoders.nancy.database;
 
-import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -64,19 +63,13 @@ public class MongoTest {
     MongoDAO<MongoElement> dao = database.create(MongoElement.class);
     Assert.assertNotNull(dao);
 
-    MongoElement firstElement = dao.getDatastore().find(MongoElement.class)
-        .field("_id")
-        .equal(0)
-        .get();
+    MongoElement firstElement = dao.findOne("_id", 0);
     Assert.assertNotNull(firstElement);
     Assert.assertEquals(0, firstElement.getId());
     Assert.assertEquals("first", firstElement.getFirst());
     Assert.assertEquals("value", firstElement.getSecond());
 
-    MongoElement secondValue = dao.getDatastore().find(MongoElement.class)
-        .field("_id")
-        .equal(1)
-        .get();
+    MongoElement secondValue = dao.findOne("_id", 1);
     Assert.assertNotNull(secondValue);
     Assert.assertEquals(0, secondValue.getId());
     Assert.assertEquals("second", secondValue.getFirst());
