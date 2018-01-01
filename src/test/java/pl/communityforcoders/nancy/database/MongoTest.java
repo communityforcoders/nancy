@@ -71,7 +71,7 @@ public class MongoTest {
 
     MongoElement secondValue = dao.findOne("_id", 1);
     Assert.assertNotNull(secondValue);
-    Assert.assertEquals(0, secondValue.getId());
+    Assert.assertEquals(1, secondValue.getId());
     Assert.assertEquals("second", secondValue.getFirst());
     Assert.assertEquals("value", secondValue.getSecond());
   }
