@@ -69,6 +69,10 @@ public class ModulesManagerImpl implements ModulesManager {
           throw new NancyException("Module with name `" + manifest.name() + "` must be null!");
         });
 
+        if (!module.getDataFolder().exists()) {
+          module.getDataFolder().mkdir();
+        }
+
         moduleMap.put(manifest.name(), module);
         module.enable();
         module.listen();
