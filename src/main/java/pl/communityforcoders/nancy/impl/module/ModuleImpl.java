@@ -51,7 +51,7 @@ public class ModuleImpl implements Module {
 
     try {
       if (enable.getParameterTypes().length == 1
-          && disable.getParameterTypes()[0].isInstance(Nancy.class)) {
+          && enable.getParameterTypes()[0] == Nancy.class) {
         enable.invoke(instance, nancy);
       } else {
         enable.invoke(instance);
@@ -77,7 +77,7 @@ public class ModuleImpl implements Module {
 
     try {
       if (disable.getParameterCount() == 1
-          && disable.getParameterTypes()[0].isInstance(Nancy.class)) {
+          && disable.getParameterTypes()[0] == Nancy.class) {
         disable.invoke(instance, nancy);
       } else {
         disable.invoke(instance);
@@ -112,7 +112,7 @@ public class ModuleImpl implements Module {
 
     for (Method targetMethod : instance.getClass().getMethods()) {
       for (Annotation targetAnnotation : targetMethod.getAnnotations()) {
-        if (targetAnnotation.getClass() == annotation) {
+        if (targetAnnotation.annotationType() == annotation) {
           return Optional.of(targetMethod);
         }
       }
@@ -128,7 +128,7 @@ public class ModuleImpl implements Module {
 
     for (Method targetMethod : instance.getClass().getMethods()) {
       for (Annotation targetAnnotation : targetMethod.getAnnotations()) {
-        if (targetAnnotation.getClass() == annotation) {
+        if (targetAnnotation.annotationType() == annotation) {
           if (targetMethod.getParameterCount() != 1) {
             continue;
           }
