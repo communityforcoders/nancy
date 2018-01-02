@@ -163,7 +163,7 @@ public class ModuleImpl implements Module {
     public void onEvent(Event event) {
       try {
         for (Method method : methods) {
-          if (method.getParameterTypes()[0].isInstance(event.getClass())) {
+          if (method.getParameterTypes()[0] == event.getClass()) {
             method.invoke(instance, event);
           }
         }
