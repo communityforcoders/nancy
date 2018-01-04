@@ -74,6 +74,7 @@ public class ModulesManagerImpl implements ModulesManager {
         }
 
         moduleMap.put(manifest.name(), module);
+
         module.inject();
         module.enable();
         module.listen();

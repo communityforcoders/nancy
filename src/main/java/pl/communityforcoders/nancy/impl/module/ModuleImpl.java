@@ -166,14 +166,15 @@ public class ModuleImpl implements Module {
     for (Method targetMethod : instance.getClass().getMethods()) {
       for (Annotation targetAnnotation : targetMethod.getAnnotations()) {
         if (targetAnnotation.annotationType() == annotation) {
-
-          if (!targetMethod.isAccessible()) {
-            targetMethod.setAccessible(true);
-          }
-
           if (targetMethod.getParameterCount() == 0 || targetMethod.getParameterCount() == 1) {
+
+            if (!targetMethod.isAccessible()) {
+              targetMethod.setAccessible(true);
+            }
+
             result.add(targetMethod);
           }
+
           break;
         }
       }
@@ -187,7 +188,7 @@ public class ModuleImpl implements Module {
 
     List<Field> result = new ArrayList<>();
 
-    for (Field field : instance.getClass().getFields()) {
+    for (Field field : instance.getClass().getDeclaredFields()) {
       if (!field.isAccessible()) {
         field.setAccessible(true);
       }
