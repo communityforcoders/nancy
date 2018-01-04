@@ -2,6 +2,7 @@ package pl.communityforcoders.nancy.impl.module;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import pl.communityforcoders.nancy.Nancy;
 import pl.communityforcoders.nancy.NancyException;
 import pl.communityforcoders.nancy.module.Module;
 import pl.communityforcoders.nancy.module.ModulesManager;
+import pl.communityforcoders.nancy.module.annotation.Inject;
 import pl.communityforcoders.nancy.module.annotation.Listener;
 import pl.communityforcoders.nancy.module.annotation.Manifest;
 import pl.communityforcoders.nancy.module.annotation.OnDisable;
@@ -24,6 +26,7 @@ public class ModuleImpl implements Module {
   private final Nancy nancy;
   private final Object instance;
 
+  private Manifest manifest;
   private Method enable;
   private Method disable;
 
@@ -98,8 +101,42 @@ public class ModuleImpl implements Module {
   }
 
   @Override
+  public void inject() {
+    List<Field> fields = findFields(Inject.class);
+    if (fields.size() == 0) {
+      return;
+    }
+
+    try {
+      for (Field field : fields) {
+        if (!field.isAccessible()) {
+          field.setAccessible(true);
+        }
+
+        if (field.getType() == File.class) {
+          field.set(instance, getDataFolder());
+        }
+
+        if (field.getType() == Manifest.class) {
+          field.set(instance, getManifest());
+        }
+
+        if (field.getType() == Nancy.class) {
+          field.set(instance, nancy);
+        }
+      }
+    } catch (IllegalAccessException ex) {
+      throw new NancyException(ex);
+    }
+  }
+
+  @Override
   public Manifest getManifest() {
-    return instance.getClass().getAnnotation(Manifest.class);
+    if (manifest == null) {
+      manifest = instance.getClass().getAnnotation(Manifest.class);
+    }
+
+    return manifest;
   }
 
   @Override
@@ -129,17 +166,34 @@ public class ModuleImpl implements Module {
     for (Method targetMethod : instance.getClass().getMethods()) {
       for (Annotation targetAnnotation : targetMethod.getAnnotations()) {
         if (targetAnnotation.annotationType() == annotation) {
-          if (targetMethod.getParameterCount() != 1) {
-            continue;
-          }
 
           if (!targetMethod.isAccessible()) {
             targetMethod.setAccessible(true);
           }
 
-          result.add(targetMethod);
+          if (targetMethod.getParameterCount() == 0 || targetMethod.getParameterCount() == 1) {
+            result.add(targetMethod);
+          }
           break;
         }
+      }
+    }
+
+    return result;
+  }
+
+  private List<Field> findFields(Class<? extends Annotation> annotation) {
+    Validate.notNull(annotation);
+
+    List<Field> result = new ArrayList<>();
+
+    for (Field field : instance.getClass().getFields()) {
+      if (!field.isAccessible()) {
+        field.setAccessible(true);
+      }
+
+      if (field.isAnnotationPresent(annotation)) {
+        result.add(field);
       }
     }
 

@@ -11,6 +11,8 @@ public interface Module {
 
   void listen();
 
+  void inject();
+
   Manifest getManifest();
 
   File getDataFolder();
