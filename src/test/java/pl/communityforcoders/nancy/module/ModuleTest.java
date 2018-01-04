@@ -37,13 +37,13 @@ public class ModuleTest {
   @Test
   public void moduleTest() {
     File file = new File(getClass().getClassLoader()
-        .getResource("nancy-test-1.0.0.0.jar")
+        .getResource("nancy-test-1.0.0.1.jar")
         .getFile());
 
     Module module = modulesManager.find(file);
     Assert.assertEquals("TestModule", module.getManifest().name());
     Assert.assertEquals("kacperduras", module.getManifest().author());
-    Assert.assertEquals("1.0.0.0", module.getManifest().version());
+    Assert.assertEquals("1.0.0.1", module.getManifest().version());
   }
 
   @After
