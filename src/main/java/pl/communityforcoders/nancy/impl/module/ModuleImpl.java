@@ -40,7 +40,7 @@ public class ModuleImpl implements Module {
     if (enable == null) {
       Optional<Method> target = findMethod(OnEnable.class);
       if (!target.isPresent()) {
-        throw new NancyException("");
+        throw new NancyException("Method with annotation `@OnEnable` must be exists!");
       }
 
       enable = target.get();
@@ -66,7 +66,7 @@ public class ModuleImpl implements Module {
     if (disable == null) {
       Optional<Method> target = findMethod(OnDisable.class);
       if (!target.isPresent()) {
-        throw new NancyException("");
+        throw new NancyException("Method with annotation `@OnDisable` must be exists!");
       }
 
       disable = target.get();
