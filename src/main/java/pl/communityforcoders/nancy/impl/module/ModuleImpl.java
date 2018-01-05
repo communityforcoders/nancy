@@ -17,7 +17,7 @@ import pl.communityforcoders.nancy.module.Module;
 import pl.communityforcoders.nancy.module.ModulesManager;
 import pl.communityforcoders.nancy.module.annotation.Inject;
 import pl.communityforcoders.nancy.module.annotation.Listener;
-import pl.communityforcoders.nancy.module.annotation.Manifest;
+import pl.communityforcoders.nancy.module.annotation.ModuleManifest;
 import pl.communityforcoders.nancy.module.annotation.OnDisable;
 import pl.communityforcoders.nancy.module.annotation.OnEnable;
 
@@ -26,7 +26,7 @@ public class ModuleImpl implements Module {
   private final Nancy nancy;
   private final Object instance;
 
-  private Manifest manifest;
+  private ModuleManifest manifest;
   private Method enable;
   private Method disable;
 
@@ -117,7 +117,7 @@ public class ModuleImpl implements Module {
           field.set(instance, getDataFolder());
         }
 
-        if (field.getType() == Manifest.class) {
+        if (field.getType() == ModuleManifest.class) {
           field.set(instance, getManifest());
         }
 
@@ -131,9 +131,9 @@ public class ModuleImpl implements Module {
   }
 
   @Override
-  public Manifest getManifest() {
+  public ModuleManifest getManifest() {
     if (manifest == null) {
-      manifest = instance.getClass().getAnnotation(Manifest.class);
+      manifest = instance.getClass().getAnnotation(ModuleManifest.class);
     }
 
     return manifest;

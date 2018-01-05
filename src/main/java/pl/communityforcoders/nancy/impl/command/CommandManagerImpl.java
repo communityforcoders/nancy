@@ -8,7 +8,7 @@ import org.apache.commons.lang3.Validate;
 import pl.communityforcoders.nancy.Nancy;
 import pl.communityforcoders.nancy.command.Command;
 import pl.communityforcoders.nancy.command.CommandManager;
-import pl.communityforcoders.nancy.command.annotation.Manifest;
+import pl.communityforcoders.nancy.command.annotation.CommandManifest;
 
 public class CommandManagerImpl implements CommandManager {
 
@@ -52,12 +52,12 @@ public class CommandManagerImpl implements CommandManager {
       method.setAccessible(true);
     }
 
-    if (!method.isAnnotationPresent(Manifest.class)) {
+    if (!method.isAnnotationPresent(CommandManifest.class)) {
       return;
     }
 
     Command command = new CommandImpl(instance, method);
-    Manifest manifest = method.getDeclaredAnnotation(Manifest.class);
+    CommandManifest manifest = method.getDeclaredAnnotation(CommandManifest.class);
     for (String name : manifest.name()) {
       if (get(name).isPresent()) {
         continue;

@@ -18,7 +18,7 @@ import pl.communityforcoders.nancy.Nancy;
 import pl.communityforcoders.nancy.NancyException;
 import pl.communityforcoders.nancy.module.Module;
 import pl.communityforcoders.nancy.module.ModulesManager;
-import pl.communityforcoders.nancy.module.annotation.Manifest;
+import pl.communityforcoders.nancy.module.annotation.ModuleManifest;
 
 public class ModulesManagerImpl implements ModulesManager {
 
@@ -60,7 +60,7 @@ public class ModulesManagerImpl implements ModulesManager {
         Object instance = loader.loadClass(main.getAsString()).newInstance();
         ModuleImpl module = new ModuleImpl(nancy, instance);
 
-        Manifest manifest = module.getManifest();
+        ModuleManifest manifest = module.getManifest();
         if (manifest == null) {
           throw new NancyException("Manifest cannot be null!");
         }

@@ -23,7 +23,7 @@ import pl.communityforcoders.nancy.impl.database.redis.RedisDatabaseImpl;
 import pl.communityforcoders.nancy.impl.module.ModulesManagerImpl;
 import pl.communityforcoders.nancy.module.ModulesManager;
 
-public class NancyImpl implements Nancy {
+public final class NancyImpl implements Nancy {
 
   private final NancyConfiguration configuration;
   private final ModulesManagerImpl modulesManager = new ModulesManagerImpl(this);

@@ -1,7 +1,7 @@
 package pl.communityforcoders.nancy.module;
 
 import java.io.File;
-import pl.communityforcoders.nancy.module.annotation.Manifest;
+import pl.communityforcoders.nancy.module.annotation.ModuleManifest;
 
 public interface Module {
 
@@ -13,7 +13,7 @@ public interface Module {
 
   void inject();
 
-  Manifest getManifest();
+  ModuleManifest getManifest();
 
   File getDataFolder();
 

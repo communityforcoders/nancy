@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.communityforcoders.nancy.Nancy;
-import pl.communityforcoders.nancy.command.annotation.Manifest;
+import pl.communityforcoders.nancy.command.annotation.CommandManifest;
 import pl.communityforcoders.nancy.command.context.CommandContext;
 import pl.communityforcoders.nancy.impl.command.CommandManagerImpl;
 
@@ -64,7 +64,7 @@ public class CommandTest {
 
   private class TestCommand {
 
-    @Manifest(name = {"test", "testcommand"})
+    @CommandManifest(name = {"test", "testcommand"})
     public void testCommand(User user, MessageChannel channel, CommandContext context) {
       Assert.assertNotNull(user);
       Assert.assertNotNull(channel);
