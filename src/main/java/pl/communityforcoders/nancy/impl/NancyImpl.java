@@ -14,8 +14,10 @@ import org.apache.commons.lang3.Validate;
 import pl.communityforcoders.nancy.Nancy;
 import pl.communityforcoders.nancy.NancyConfiguration;
 import pl.communityforcoders.nancy.NancyException;
+import pl.communityforcoders.nancy.command.CommandManager;
 import pl.communityforcoders.nancy.database.mongo.MongoDatabase;
 import pl.communityforcoders.nancy.database.redis.RedisDatabase;
+import pl.communityforcoders.nancy.impl.command.CommandManagerImpl;
 import pl.communityforcoders.nancy.impl.database.mongo.MongoDatabaseImpl;
 import pl.communityforcoders.nancy.impl.database.redis.RedisDatabaseImpl;
 import pl.communityforcoders.nancy.impl.module.ModulesManagerImpl;
@@ -23,8 +25,9 @@ import pl.communityforcoders.nancy.module.ModulesManager;
 
 public class NancyImpl implements Nancy {
 
-  private final ModulesManagerImpl modulesManager = new ModulesManagerImpl(this);
   private final NancyConfiguration configuration;
+  private final ModulesManagerImpl modulesManager = new ModulesManagerImpl(this);
+  private final CommandManagerImpl commandManager = new CommandManagerImpl(this);
 
   private MongoDatabase mongo;
   private RedisDatabase redis;
@@ -74,6 +77,7 @@ public class NancyImpl implements Nancy {
     }
 
     loadModules();
+    commandManager.listen();
   }
 
   @Override
@@ -122,6 +126,11 @@ public class NancyImpl implements Nancy {
   @Override
   public ModulesManager getModulesManager() {
     return modulesManager;
+  }
+
+  @Override
+  public CommandManager getCommandManager() {
+    return commandManager;
   }
 
   private void loadModules() {
