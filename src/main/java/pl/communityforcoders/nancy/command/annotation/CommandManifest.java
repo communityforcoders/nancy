@@ -12,6 +12,6 @@ public @interface CommandManifest {
 
   String[] name();
 
-  ChannelType[] type();
+  ChannelType[] type() default {};
 
 }

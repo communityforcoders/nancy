@@ -143,6 +143,10 @@ public final class NancyImpl implements Nancy {
       throw new NancyException("Modules cannot be loaded!");
     }
     for (File file : ModulesManager.MODULES_DIRECTORY.listFiles()) {
+      if (!file.getName().endsWith(".jar")) {
+        continue;
+      }
+
       modulesManager.find(file).enable();
     }
   }

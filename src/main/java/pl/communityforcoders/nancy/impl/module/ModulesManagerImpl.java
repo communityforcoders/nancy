@@ -46,7 +46,7 @@ public class ModulesManagerImpl implements ModulesManager {
     try {
       URLClassLoader loader = new URLClassLoader(new URL[]{ file.toURL() }, ClassLoader.getSystemClassLoader());
 
-      try (InputStream stream =  loader.getResourceAsStream("plugin.json")) {
+      try (InputStream stream = loader.getResourceAsStream("plugin.json")) {
         if (stream == null) {
           throw new NancyException("Stream cannot be null!");
         }

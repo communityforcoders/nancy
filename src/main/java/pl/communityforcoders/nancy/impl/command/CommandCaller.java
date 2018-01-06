@@ -26,24 +26,27 @@ final class CommandCaller implements EventListener {
     if (!(event instanceof MessageReceivedEvent)) {
       return;
     }
+
     MessageReceivedEvent messageEvent = (MessageReceivedEvent) event;
     Message message = messageEvent.getMessage();
-    CommandContext context = CommandContext.parse(message.getContentRaw().split(" ")[0],
-        message);
 
-    Optional<String> optionalCommandName = context.getParam(1);
-    if (!optionalCommandName.isPresent()) {
-      return;
-    }
-    Optional<Command> optionalCommand = manager.get(optionalCommandName.get());
+    String prefix = message.getContentRaw().split(" ")[0];
+    CommandContext context = CommandContext.parse(prefix, message);
+
+    Optional<Command> optionalCommand = manager.get(prefix);
     if (!optionalCommand.isPresent()) {
       return;
     }
 
     Command command = optionalCommand.get();
+    if (command.getManifest().type().length == 0) {
+      command.execute(messageEvent.getAuthor(), messageEvent.getChannel(), context);
+      return;
+    }
+
     for (ChannelType type : command.getManifest().type()) {
       if (message.isFromType(type)) {
-        command.execute(messageEvent.getAuthor(), messageEvent.getTextChannel(), context);
+        command.execute(messageEvent.getAuthor(), messageEvent.getChannel(), context);
         break;
       }
     }

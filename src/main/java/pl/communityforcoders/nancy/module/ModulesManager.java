@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface ModulesManager {
 
-  File MODULES_DIRECTORY = new File("modules");
+  File MODULES_DIRECTORY = new File("modules_directory");
 
   Optional<Module> get(String name);
 
