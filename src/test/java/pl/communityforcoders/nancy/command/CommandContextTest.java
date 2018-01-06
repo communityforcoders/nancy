@@ -62,11 +62,13 @@ public class CommandContextTest {
 
   @Test
   public void mixedTest() {
-    when(message.getContentRaw()).thenReturn("--firstflag firstparam -firstkey firstvalue "
+    when(message.getContentRaw()).thenReturn("prefix --firstflag firstparam -firstkey firstvalue "
         + "-secondkey secondvalue --secondflag secondparam");
-    CommandContext context = CommandContext.parse(message);
+    CommandContext context = CommandContext.parse("prefix", message);
 
     Assert.assertNotNull(context);
+
+    Assert.assertFalse(context.hasParam("prefix"));
 
     Assert.assertTrue(context.hasParam("firstparam"));
     Assert.assertEquals("firstparam", context.getParam(1).get());

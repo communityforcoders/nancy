@@ -1,6 +1,7 @@
 package pl.communityforcoders.nancy.impl.command;
 
 import java.util.Optional;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
@@ -25,7 +26,9 @@ final class CommandCaller implements EventListener {
       return;
     }
     MessageReceivedEvent messageEvent = (MessageReceivedEvent) event;
-    CommandContext context = CommandContext.parse(messageEvent.getMessage());
+    Message message = messageEvent.getMessage();
+    CommandContext context = CommandContext.parse(message.getContentRaw().split(" ")[0],
+        message);
 
     Optional<String> optionalCommandName = context.getParam(1);
     if (!optionalCommandName.isPresent()) {

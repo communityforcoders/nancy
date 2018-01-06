@@ -13,7 +13,8 @@ import org.apache.commons.lang3.Validate;
 
 public interface CommandContext {
 
-  static CommandContext parse(Message message) {
+  static CommandContext parse(String prefix, Message message) {
+    Validate.notNull(prefix);
     Validate.notNull(message);
 
     String[] rawArray = message.getContentRaw().split(" ");
@@ -25,6 +26,10 @@ public interface CommandContext {
     String valueKey = null;
 
     for (String param : rawArray) {
+      if (!prefix.isEmpty() && param.equals(prefix)) {
+        continue;
+      }
+
       if (param.startsWith("--")) {
         flags.add(param.substring(2, param.length()));
         continue;
@@ -47,6 +52,12 @@ public interface CommandContext {
 
     return new CommandContextImpl(params, flags, values,
         message.getMentionedUsers(), message.getMentionedRoles(), message.getMentionedChannels());
+  }
+
+  static CommandContext parse(Message message) {
+    Validate.notNull(message);
+
+    return parse("", message);
   }
 
   List<String> getParams();
