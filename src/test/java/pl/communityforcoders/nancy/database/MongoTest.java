@@ -33,6 +33,7 @@ public class MongoTest {
   @Before
   public void setup() {
     NancyConfiguration.Mongo mongoConfiguration = mock(NancyConfiguration.Mongo.class);
+    when(mongoConfiguration.isEnabled()).thenReturn(true);
     when(mongoConfiguration.getHost()).thenReturn("localhost");
     when(mongoConfiguration.getPort()).thenReturn(27017);
     when(mongoConfiguration.getLogin()).thenReturn("travis");

@@ -32,6 +32,7 @@ public class NancyConfigurationTest {
     NancyConfiguration.Mongo mongo = configuration.getMongo();
     Assert.assertNotNull(mongo);
 
+    Assert.assertEquals(false, mongo.isEnabled());
     Assert.assertEquals("localhost", mongo.getHost());
     Assert.assertEquals(27017, mongo.getPort());
     Assert.assertEquals("root", mongo.getLogin());
@@ -44,6 +45,7 @@ public class NancyConfigurationTest {
     NancyConfiguration.Redis redis = configuration.getRedis();
     Assert.assertNotNull(redis);
 
+    Assert.assertEquals(false, redis.isEnabled());
     Assert.assertEquals("localhost", redis.getHost());
     Assert.assertEquals(6379, redis.getPort());
   }

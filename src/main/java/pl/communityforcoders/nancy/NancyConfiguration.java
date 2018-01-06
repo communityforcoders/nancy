@@ -40,6 +40,9 @@ public class NancyConfiguration {
 
   public static class Mongo {
 
+    @SerializedName("enabled")
+    private final boolean enabled = false;
+
     @SerializedName("host")
     private final String host = "localhost";
 
@@ -54,6 +57,10 @@ public class NancyConfiguration {
 
     @SerializedName("database")
     private final String database = "database";
+
+    public boolean isEnabled() {
+      return enabled;
+    }
 
     public String getHost() {
       return host;
@@ -79,11 +86,18 @@ public class NancyConfiguration {
 
   public static class Redis {
 
+    @SerializedName("enabled")
+    private final boolean enabled = false;
+
     @SerializedName("host")
     private final String host = "localhost";
 
     @SerializedName("port")
     private final int port = 6379;
+
+    public boolean isEnabled() {
+      return enabled;
+    }
 
     public String getHost() {
       return host;

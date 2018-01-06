@@ -1,5 +1,6 @@
 package pl.communityforcoders.nancy;
 
+import java.util.Optional;
 import net.dv8tion.jda.core.JDA;
 import pl.communityforcoders.nancy.command.CommandManager;
 import pl.communityforcoders.nancy.database.mongo.MongoDatabase;
@@ -18,9 +19,9 @@ public interface Nancy {
 
   JDA getJDA();
 
-  MongoDatabase getMongo();
+  Optional<MongoDatabase> getMongo();
 
-  RedisDatabase getRedis();
+  Optional<RedisDatabase> getRedis();
 
   ModulesManager getModulesManager();
 

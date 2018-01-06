@@ -32,6 +32,7 @@ public class RedisTest {
   @Before
   public void setup() {
     NancyConfiguration.Redis redis = mock(NancyConfiguration.Redis.class);
+    when(redis.isEnabled()).thenReturn(true);
     when(redis.getHost()).thenReturn("localhost");
     when(redis.getPort()).thenReturn(6379);
 

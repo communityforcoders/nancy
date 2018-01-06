@@ -3,6 +3,7 @@ package pl.communityforcoders.nancy.impl;
 import com.lambdaworks.redis.RedisException;
 import com.mongodb.MongoException;
 import java.io.File;
+import java.util.Optional;
 import javax.security.auth.login.LoginException;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -45,18 +46,22 @@ public final class NancyImpl implements Nancy {
       throw new NancyException("Valid state!");
     }
 
-    mongo = new MongoDatabaseImpl(this);
-    try {
-      mongo.open();
-    } catch (MongoException ex) {
-      throw new NancyException(ex);
+    if (configuration.getMongo().isEnabled()) {
+      mongo = new MongoDatabaseImpl(this);
+      try {
+        mongo.open();
+      } catch (MongoException ex) {
+        throw new NancyException(ex);
+      }
     }
 
-    redis = new RedisDatabaseImpl(this);
-    try {
-      redis.open();
-    } catch (RedisException ex) {
-      throw new NancyException(ex);
+    if (configuration.getRedis().isEnabled()) {
+      redis = new RedisDatabaseImpl(this);
+      try {
+        redis.open();
+      } catch (RedisException ex) {
+        throw new NancyException(ex);
+      }
     }
 
     JDABuilder builder = new JDABuilder(AccountType.BOT);
@@ -114,13 +119,13 @@ public final class NancyImpl implements Nancy {
   }
 
   @Override
-  public MongoDatabase getMongo() {
-    return mongo;
+  public Optional<MongoDatabase> getMongo() {
+    return Optional.ofNullable(mongo);
   }
 
   @Override
-  public RedisDatabase getRedis() {
-    return redis;
+  public Optional<RedisDatabase> getRedis() {
+    return Optional.ofNullable(redis);
   }
 
   @Override
