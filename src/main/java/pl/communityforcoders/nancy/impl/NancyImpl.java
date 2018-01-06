@@ -139,7 +139,7 @@ public final class NancyImpl implements Nancy {
   }
 
   private void loadModules() {
-    if (!ModulesManager.MODULES_DIRECTORY.exists() && !ModulesManager.MODULES_DIRECTORY.exists()) {
+    if (!ModulesManager.MODULES_DIRECTORY.exists() && !ModulesManager.MODULES_DIRECTORY.mkdir()) {
       throw new NancyException("Modules cannot be loaded!");
     }
     for (File file : ModulesManager.MODULES_DIRECTORY.listFiles()) {
