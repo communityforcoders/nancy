@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.User;
 import org.apache.commons.lang3.Validate;
 
 public interface CommandContext {
@@ -42,7 +45,8 @@ public interface CommandContext {
       params.add(param);
     }
 
-    return new CommandContextImpl(params, flags, values);
+    return new CommandContextImpl(params, flags, values,
+        message.getMentionedUsers(), message.getMentionedRoles(), message.getMentionedChannels());
   }
 
   List<String> getParams();
@@ -81,6 +85,30 @@ public interface CommandContext {
     Validate.notNull(key);
 
     return Optional.ofNullable(getValues().get(key));
+  }
+
+  List<User> getMentionedUsers();
+
+  default boolean isUserMentioned(User user) {
+    Validate.notNull(user);
+
+    return getMentionedUsers().contains(user);
+  }
+
+  List<Role> getMentionedRoles();
+
+  default boolean isRoleMentioned(Role role) {
+    Validate.notNull(role);
+
+    return getMentionedRoles().equals(role);
+  }
+
+  List<TextChannel> getMentionedChannels();
+
+  default boolean isChannelMentioned(TextChannel channel) {
+    Validate.notNull(channel);
+
+    return getMentionedChannels().equals(channel);
   }
 
 }

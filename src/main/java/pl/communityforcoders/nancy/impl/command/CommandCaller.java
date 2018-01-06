@@ -37,7 +37,7 @@ final class CommandCaller implements EventListener {
     }
 
     Command command = optionalCommand.get();
-    command.execute(messageEvent.getAuthor(), messageEvent.getChannel(), context);
+    command.execute(messageEvent.getAuthor(), messageEvent.getTextChannel(), context);
   }
 
 }

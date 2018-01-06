@@ -2,7 +2,7 @@ package pl.communityforcoders.nancy.command;
 
 import java.util.Optional;
 import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import org.junit.After;
 import org.junit.Assert;
@@ -42,7 +42,7 @@ public class CommandTest {
   @Test
   public void commandTest() {
     User user = mock(User.class);
-    MessageChannel channel = mock(MessageChannel.class);
+    TextChannel channel = mock(TextChannel.class);
     CommandContext context = mock(CommandContext.class);
 
     commandManager.register(new TestCommand());
@@ -65,7 +65,7 @@ public class CommandTest {
   private class TestCommand {
 
     @CommandManifest(name = {"test", "testcommand"})
-    public void testCommand(User user, MessageChannel channel, CommandContext context) {
+    public void testCommand(User user, TextChannel channel, CommandContext context) {
       Assert.assertNotNull(user);
       Assert.assertNotNull(channel);
       Assert.assertNotNull(context);

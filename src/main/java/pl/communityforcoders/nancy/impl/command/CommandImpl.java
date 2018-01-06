@@ -3,6 +3,7 @@ package pl.communityforcoders.nancy.impl.command;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import org.apache.commons.lang3.Validate;
 import pl.communityforcoders.nancy.command.Command;
@@ -22,7 +23,7 @@ class CommandImpl implements Command {
   }
 
   @Override
-  public void execute(User user, MessageChannel channel, CommandContext context) {
+  public void execute(User user, TextChannel channel, CommandContext context) {
     Validate.notNull(user);
     Validate.notNull(channel);
     Validate.notNull(context);
