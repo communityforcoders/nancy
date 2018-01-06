@@ -2,6 +2,7 @@ package pl.communityforcoders.nancy.command;
 
 import java.util.Optional;
 import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import org.junit.After;
@@ -49,10 +50,12 @@ public class CommandTest {
 
     Optional<Command> first = commandManager.get("test");
     Assert.assertTrue(first.isPresent());
+    Assert.assertNotNull(first.get().getManifest());
     first.get().execute(user, channel, context);
 
     Optional<Command> second = commandManager.get("testcommand");
     Assert.assertTrue(second.isPresent());
+    Assert.assertNotNull(second.get().getManifest());
     second.get().execute(user, channel, context);
   }
 
@@ -64,7 +67,7 @@ public class CommandTest {
 
   private class TestCommand {
 
-    @CommandManifest(name = {"test", "testcommand"})
+    @CommandManifest(name = {"test", "testcommand"}, type = ChannelType.PRIVATE)
     public void testCommand(User user, TextChannel channel, CommandContext context) {
       Assert.assertNotNull(user);
       Assert.assertNotNull(channel);

@@ -56,8 +56,9 @@ public class CommandManagerImpl implements CommandManager {
       return;
     }
 
-    Command command = new CommandImpl(instance, method);
     CommandManifest manifest = method.getDeclaredAnnotation(CommandManifest.class);
+    Command command = new CommandImpl(instance, method, manifest);
+
     for (String name : manifest.name()) {
       if (get(name).isPresent()) {
         continue;

@@ -1,6 +1,7 @@
 package pl.communityforcoders.nancy.impl.command;
 
 import java.util.Optional;
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -40,7 +41,12 @@ final class CommandCaller implements EventListener {
     }
 
     Command command = optionalCommand.get();
-    command.execute(messageEvent.getAuthor(), messageEvent.getTextChannel(), context);
+    for (ChannelType type : command.getManifest().type()) {
+      if (message.isFromType(type)) {
+        command.execute(messageEvent.getAuthor(), messageEvent.getTextChannel(), context);
+        break;
+      }
+    }
   }
 
 }
