@@ -16,13 +16,13 @@ public class NancyConfiguration {
   public static class Discord {
 
     @SerializedName("token")
-    private final String token = "token";
+    private String token = "token";
 
     @SerializedName("game")
-    private final String game = "Nancy ver. 1.0.0.0";
+    private String game = "Nancy ver. 1.0.0.0";
 
     @SerializedName("pool-size")
-    private final int poolSize = 4;
+    private int poolSize = 4;
 
     public String getToken() {
       return token;
@@ -41,22 +41,22 @@ public class NancyConfiguration {
   public static class Mongo {
 
     @SerializedName("enabled")
-    private final boolean enabled = false;
+    private boolean enabled = false;
 
     @SerializedName("host")
-    private final String host = "localhost";
+    private String host = "localhost";
 
     @SerializedName("port")
-    private final int port = 27017;
+    private int port = 27017;
 
     @SerializedName("login")
-    private final String login = "root";
+    private String login = "root";
 
     @SerializedName("password")
-    private final String password = "password";
+    private String password = "password";
 
     @SerializedName("database")
-    private final String database = "database";
+    private String database = "database";
 
     public boolean isEnabled() {
       return enabled;
@@ -87,13 +87,13 @@ public class NancyConfiguration {
   public static class Redis {
 
     @SerializedName("enabled")
-    private final boolean enabled = false;
+    private boolean enabled = false;
 
     @SerializedName("host")
-    private final String host = "localhost";
+    private String host = "localhost";
 
     @SerializedName("port")
-    private final int port = 6379;
+    private int port = 6379;
 
     public boolean isEnabled() {
       return enabled;
