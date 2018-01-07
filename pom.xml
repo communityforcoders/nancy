@@ -7,7 +7,7 @@
   <name>nancy</name>
   <groupId>pl.communityforcoders</groupId>
   <artifactId>nancy</artifactId>
-  <version>1.0.0.0-SNAPSHOT</version>
+  <version>1.0.0.0</version>
 
   <description>
     Nancy is a multi-module bot for your Discord server. It's created for the CommunityForCoders through there's community, but its structure doesn't interfere with the use by others.
