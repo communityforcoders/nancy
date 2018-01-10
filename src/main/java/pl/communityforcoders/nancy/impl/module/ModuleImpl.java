@@ -43,13 +43,10 @@ public class ModuleImpl implements Module {
     if (enable == null) {
       Optional<Method> target = findMethod(OnEnable.class);
       if (!target.isPresent()) {
-        throw new NancyException("Method with annotation `@OnEnable` must be exists!");
+        return;
       }
 
       enable = target.get();
-      if (!enable.isAccessible()) {
-        enable.setAccessible(true);
-      }
     }
 
     try {
@@ -69,13 +66,10 @@ public class ModuleImpl implements Module {
     if (disable == null) {
       Optional<Method> target = findMethod(OnDisable.class);
       if (!target.isPresent()) {
-        throw new NancyException("Method with annotation `@OnDisable` must be exists!");
+        return;
       }
 
       disable = target.get();
-      if (!disable.isAccessible()) {
-        disable.setAccessible(true);
-      }
     }
 
     try {
