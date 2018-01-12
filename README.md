@@ -5,8 +5,7 @@ Nancy is a multi-module bot for your Discord server. It's created for the Commun
 Soon.
 
 ## Contributing
-Feel free to submit pull requests, just make sure your changes are consistent with 
-[Google's Java code style](https://google.github.io/styleguide/javaguide.html)!
+Contributing rules is available [here](.github/CONTRIBUTING.md).
 
 ## License
 [GNU AGPLv3](LICENSE)
