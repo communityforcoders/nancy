@@ -1,1 +1,1 @@
-Contributing rules is available [here](.github/CONTRIBUTING.md).
+Contributing rules is available [here](CONTRIBUTING.md).
