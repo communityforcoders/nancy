@@ -14,10 +14,10 @@ Hints:
 * if possible, give us a way to reproduce your error - it will be useful for us;
 * if it's a proposition - a visualization is welcome.
 
-# Pull requests
+## Pull requests
 Hints:
 * if you add new functionality as much as possible and meaningful - write unit tests;
 * check if your idea is added, or waiting for acceptance;
-* react to the review from our side;
+* react to the review from our side.
 
 That's all, happy contributing!
