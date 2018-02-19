@@ -7,9 +7,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.communityforcoders.nancy.Nancy;
+import pl.communityforcoders.nancy.command.CommandManager;
 import pl.communityforcoders.nancy.impl.module.ModulesManagerImpl;
 
 import static org.mockito.Mockito.doAnswer;
@@ -24,12 +26,17 @@ public class ModuleTest {
   @Mock
   private JDA jda;
 
+  @Mock
+  private CommandManager manager;
+
   private ModulesManagerImpl modulesManager;
 
   @Before
   public void setup() {
     doAnswer((mock) -> null).when(jda).addEventListener();
+    doAnswer((mock) -> null).when(manager).register(Matchers.any());
     when(nancy.getJDA()).thenReturn(jda);
+    when(nancy.getCommandManager()).thenReturn(manager);
 
     modulesManager = new ModulesManagerImpl(nancy);
   }
