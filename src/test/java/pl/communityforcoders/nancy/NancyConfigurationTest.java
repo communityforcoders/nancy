@@ -24,7 +24,7 @@ public class NancyConfigurationTest {
     Assert.assertNotNull(discord);
 
     Assert.assertEquals("token", discord.getToken());
-    Assert.assertEquals("Nancy ver. 1.0.0.0", discord.getGame());
+    Assert.assertEquals("Nancy ver. 1.0.0.1", discord.getGame());
   }
 
   @Test
