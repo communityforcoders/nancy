@@ -59,6 +59,8 @@ public class ModuleImpl implements Module {
     } catch (IllegalAccessException | InvocationTargetException ex) {
       throw new NancyException(ex);
     }
+
+    this.nancy.getCommandManager().register(instance);
   }
 
   @Override
