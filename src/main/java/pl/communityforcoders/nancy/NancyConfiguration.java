@@ -19,7 +19,7 @@ public class NancyConfiguration {
     private String token = "token";
 
     @SerializedName("game")
-    private String game = "Nancy ver. 1.0.0.0";
+    private String game = "Nancy ver. 1.0.0.1";
 
     @SerializedName("pool-size")
     private int poolSize = 4;
